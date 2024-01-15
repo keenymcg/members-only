@@ -1,0 +1,22 @@
+<!-- FILEPATH: /Users/KeenanMcG/RubyRepos/members-only/app/views/posts/index.html.erb -->
+
+<h1>All Posts</h1>
+
+<% if signed_in? %>
+    <p>Welcome, <%= current_user.name %>!</p>
+    <%= link_to "New Post", new_post_path %>
+    <%= link_to "Log out", destroy_user_session_path, method: :delete %>
+<% else %>
+    <p>Please <%= link_to "sign in or sign up", new_user_registration_path %> to view the author of the posts.</p>
+<% end %>
+
+<% @posts.each do |post| %>
+    <div>
+        <h3><%= post.title %></h3>
+        <p><%= post.content %></p>
+        <% if signed_in? %>
+            <p>Author: <%= post.user.name %></p>
+        <% end %>
+    </div>
+<% end %>
+
